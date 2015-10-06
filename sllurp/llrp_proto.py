@@ -2204,7 +2204,9 @@ def decode_TagReportData(data):
         ret, body = decode('EPC-96')(body)
         if ret:
             par['EPC-96'] = ret['EPC']
-            par['temperature'] = int(par['EPC-96'][2:6], 16) * 0.065
+            # 0xFF|HHLL|HHLL|...
+            par['temperatureACC'] = int(par['EPC-96'][2:6], 16) * 0.065
+            par['temperatureADC'] = int(par['EPC-96'][6:10], 16) / 10
             logger.debug('EPC-96: %s', ret['EPC'])
         else:
             raise LLRPError('missing or invalid EPCData parameter')
