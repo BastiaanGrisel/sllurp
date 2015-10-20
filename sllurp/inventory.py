@@ -33,6 +33,7 @@ def tagReportCallback (llrpMsg):
         return
     for tag in tags:
         numTags += tag['TagSeenCount'][0]
+        print(tag['LastSeenTimestampUTC'][0], tag['temperatureACC'], tag['temperatureADC'])
 
 def parse_args ():
     global args
@@ -45,7 +46,7 @@ def parse_args ():
             help='number of seconds for which to inventory (default forever)')
     parser.add_argument('-d', '--debug', action='store_true',
             help='show debugging output')
-    parser.add_argument('-n', '--report-every-n-tags', default=10, type=int,
+    parser.add_argument('-n', '--report-every-n-tags', default=1, type=int,
             dest='every_n', metavar='N', help='issue a TagReport every N tags')
     parser.add_argument('-a', '--antennas', default='1',
             help='comma-separated list of antennas to enable (0=all; '\
