@@ -31,6 +31,7 @@ import time
 from util import *
 import llrp_decoder
 from llrp_errors import *
+import math
 
 #
 # Define exported symbols
@@ -2207,6 +2208,10 @@ def decode_TagReportData(data):
             # 0xFF|HHLL|HHLL|...
             par['temperatureACC'] = int(par['EPC-96'][2:6], 16) * 0.065
             par['temperatureADC'] = int(par['EPC-96'][6:10], 16) / 10
+            par['accelX']         = (int(par['EPC-96'][10:12], 16) - 128) / 64.0
+            par['accelY']         = (int(par['EPC-96'][12:14], 16) - 128) / 64.0
+            par['accelZ']         = (int(par['EPC-96'][14:16], 16) - 128) / 64.0
+            par['accelMagnitude'] = math.sqrt(math.pow(par['accelX'], 2) + math.pow(par['accelY'], 2) + math.pow(par['accelZ'], 2))
             logger.debug('EPC-96: %s', ret['EPC'])
         else:
             raise LLRPError('missing or invalid EPCData parameter')
