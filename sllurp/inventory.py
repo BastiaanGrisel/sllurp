@@ -33,7 +33,7 @@ def tagReportCallback (llrpMsg):
         return
     for tag in tags:
         numTags += tag['TagSeenCount'][0]
-        print(tag['EPC-96'], tag['LastSeenTimestampUTC'][0], tag['temperatureACC'], tag['temperatureADC'], tag['accelMagnitude'])
+        print(tag['EPC-96'], tag['LastSeenTimestampUTC'][0], tag['PeakRSSI'][0], tag['temperatureACC'], tag['temperatureADC'], tag['accelMagnitude'])
 
 def parse_args ():
     global args
